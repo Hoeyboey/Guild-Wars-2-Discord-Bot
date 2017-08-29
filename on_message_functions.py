@@ -1,6 +1,8 @@
 from get_request_functions import *
+import asyncio
 
-async def daily_achievement_function(message, client):
+@asyncio.coroutine
+def daily_achievement_function(message, client):
 	split_message_content = message.content.split()
 	if len(split_message_content) == 1:
 		current_dailies = collect_daily_quests()
@@ -14,10 +16,10 @@ async def daily_achievement_function(message, client):
 				available_quests_to_your_level_ids = format_current_dailies_to_your_level(current_dailies, split_message_content[1])
 				return available_quests_to_your_level_ids
 			else:
-				await client.send_message(message.channel, "You've put in something that's not a possible character level!")
+				yield from client.send_message(message.channel, "You've put in something that's not a possible character level!")
 				return None
 		except ValueError:
-			await client.send_message(message.channel, "You put in something that's not a number after !daily.")
+			yield from client.send_message(message.channel, "You put in something that's not a number after !daily.")
 			return None
 
 def format_daily_quest_output(available_quests, quest_rewards):
