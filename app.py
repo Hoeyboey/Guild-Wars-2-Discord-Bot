@@ -29,8 +29,6 @@ def on_message(message):
 			final_output_for_available_daily_quests = format_daily_quest_output(available_quests_full_description, formatted_quest_rewards)
 			for x in final_output_for_available_daily_quests:
 				yield from client.send_message(message.channel, x)
-	if message.content == ("!starttimers"):
-		yield from start_timers(message, client)
 	if message.content == ("!logout"):
 		yield from client.logout()
 
